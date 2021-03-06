@@ -1,0 +1,12 @@
+// customize base bootstrap
+
+$primary: #ff6663;
+$link-color: #5196cb;
+$body-color: #272727;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Open Sans", Roboto,
+  "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+$btn-border-radius: 20px;
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";

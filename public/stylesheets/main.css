@@ -1,27 +1,74 @@
-.jumbotron {
-  background: #532F8C;
-  color: white;
-  padding-bottom: 80px; }
-  .jumbotron .btn-primary {
-    background: #845ac7;
-    border-color: #845ac7; }
-    .jumbotron .btn-primary:hover {
-      background: #7646c1; }
-  .jumbotron p {
-    color: #d9ccee;
-    max-width: 75%;
-    margin: 1em auto 2em; }
-  .navbar + .jumbotron {
-    margin-top: -20px; }
-  .jumbotron .lang-logo {
-    display: block;
-    background: #B01302;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    border: 2px solid white; }
-    .jumbotron .lang-logo img {
-      max-width: 100%; }
+.box {
+  overflow: auto;
+  width: 100%;
+  display: flex;
+  max-width: 1000px;
+  height: 50%;
+  border-radius: 20px;
+  border: 1px solid gray;
+  margin: auto;
+}
 
+.box > img {
+  display: block;
+  float: right;
+  height: auto;
+  padding-right: 0px;
+  clear: both;
+  width: 50%;
+  object-fit: cover;
+}
+
+.info-box {
+  float: left;
+  text-align: left;
+  display: block;
+  margin: 10px;
+  position: relative;
+}
+
+.info-text {
+  display: block;
+  margin-bottom: 10px;
+  clear: both;
+}
+
+.location {
+  display: block;
+  margin-top: 5px;
+  position: absolute;
+  bottom: 0;
+  clear: both;
+}
+
+.navbar {
+  padding-left: 30px;
+  padding-right: 30px;
+  position: sticky;
+}
+header {
+  position: sticky;
+  top: 0;
+}
+footer {
+  height: 2.5rem;
+  position: absolute;
+  bottom: 0px;
+  font-size: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.btn-block {
+  max-width: 50%;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.logo {
+  float: left;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

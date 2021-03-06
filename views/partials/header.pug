@@ -1,0 +1,9 @@
+header
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container
+      - var navlinks = [{"name": "School Listing", "path": "/schools"}, {"name": "About", "path": "/about"}]
+      a.navbar-brand(href="/") Quilt
+      ul.navbar-nav
+        each navlink in navlinks
+          li.nav-item
+            a.nav-link(href=navlink.path)= navlink.name

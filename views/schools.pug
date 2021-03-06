@@ -1,0 +1,21 @@
+extends layouts/layout
+
+block content
+  form(action="/schools/create") 
+    input.btn.btn-block.btn-primary(type="submit" value="Create New Listing")
+
+  form(action="" method="method")
+  table.table.table-striped
+    thead
+      th Name
+      th About
+      th Location
+      th
+    each school in schools
+      tr
+        td: a(href=`/schools/${school.id}/`)= school.name
+        td= school.about
+        td= school.location
+        td
+          form(action=`/schools/${school.id}/delete` method="POST")
+            input.btn.btn-secondary(type="submit", value="Delete")

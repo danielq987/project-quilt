@@ -1,7 +1,21 @@
-extends layout
+extends layouts/layout
 
 block content
-  h1= school.name
-  p= school.about
-  p= school.location
-  p= school.admissions
+  a(href="..") << Back to Listings
+  h1.text-center= school.name
+  .box
+    .info-box.container
+      .info-text
+        p
+          b About: 
+          =school.about
+        p
+          b Admissions: 
+          =school.admissions
+        br
+      .location
+        =school.location
+    if school.imagekey
+      img.img-fluid(src=`https://quiltimages.s3.amazonaws.com/${school.imagekey}`, alt=`Image of ${school.name}`)
+  form(action="./update") 
+    input.btn.btn-block.btn-primary(type="submit" value="Edit Information")

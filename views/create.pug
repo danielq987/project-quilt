@@ -1,20 +1,25 @@
-extends layout
-
+extends ./layouts/layout
+//- responsible for creating/updating a school's info 
 block content
-  form(action="/create" method="POST")
-    label(for="img") Image of School: 
-    input#img(type="file" accept="image/*" name="img")
-    br
-    label(for="name") Name of School: 
-    input#name(type="text" name="name")
-    br
-    label(for="about") About: 
-    textarea#about(name="about")
-    br
-    label(for="location") Location: 
-    textarea#location(name="location")
-    br
-    label(for="admissions") Admissions
-    textarea#admissions(name="admissions")
-    br
-    input(type="submit")
+  if type == "create"
+    h2 Create School Listing
+  else
+    h2 Edit School Listing
+  form(action=`./${type}` enctype="multipart/form-data" method="POST")
+    .form-group
+      label(for="img") Attach Image 
+      input.form-control-file#img(type="file" accept="image/*" name="img")
+    .form-group
+      label(for="name") Name of School* 
+      input.form-control#name(type="text" name="name" value=school.name required)
+    .form-group
+      label(for="about") About 
+      textarea.form-control#about(name="about" value=school.about)=school.about
+    .form-group
+      label(for="location") Location 
+      textarea.form-control#location(name="location" value=school.location)=school.location
+    .form-group
+      label(for="admissions") Admissions
+      textarea.form-control#admissions(name="admissions" value=school.admissions)=school.admissions
+    .form-group
+      input.btn.btn-primary.btn-block(type="submit")

@@ -5,6 +5,7 @@ Entry point of app. Some boilerplate is taken from
 */
 const express = require("express");
 const http = require("http");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -21,21 +22,23 @@ function startServer() {
   app.set("trust proxy", 1);
 
   const index = require("./routes/index");
-  const school = require("./routes/school");
+  const schools = require("./routes/school");
 
-  // settings
+  // express config
   app.use("/public", express.static("public"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(cors());
 
   app.use("/", index);
-  app.use("/school", school);
+  app.use("/schools", schools);
 
-  server.listen(port, function () {
+  server.listen(port, () => {
     console.log("listening on *:" + port);
   });
 
-  app.use(function err404(req, res, next) {
+  // 404 handling
+  app.use((req, res, next) => {
     res.status(404).render("404", { title: "Oops!" });
   });
 }

@@ -50,8 +50,8 @@ async function getSchoolByName(searchQuery) {
 async function createSchool(info) {
   try {
     const newSchool = await pool.query(
-      "INSERT INTO schools(name, about, location, admissions) VALUES($1, $2, $3, $4) RETURNING *",
-      [info.name, info.about, info.location, info.admissions]
+      "INSERT INTO schools(name, about, location, admissions, imagekey) VALUES($1, $2, $3, $4, $5) RETURNING *",
+      [info.name, info.about, info.location, info.admissions, info.imagekey]
     );
     return newSchool.rows[0];
   } catch (error) {
@@ -59,14 +59,40 @@ async function createSchool(info) {
   }
 }
 
-// Updates a school's information
-async function updateSchool(info) {
+async function updateSchool(id, info) {
   try {
-    const newSchool = await pool.query(
-      "INSERT INTO schools(name, about, location, admissions) VALUES($1, $2, $3, $4) RETURNING *",
-      []
-    );
+    let newSchool;
+    if (info.imagekey) {
+      newSchool = await pool.query(
+        "UPDATE schools SET name=$1, about=$2, location=$3, admissions=$4, imagekey=$5 WHERE ID=$6",
+        [
+          info.name,
+          info.about,
+          info.location,
+          info.admissions,
+          info.imagekey,
+          id,
+        ]
+      );
+    } else {
+      newSchool = await pool.query(
+        "UPDATE schools SET name=$1, about=$2, location=$3, admissions=$4 WHERE ID=$5",
+        [info.name, info.about, info.location, info.admissions, id]
+      );
+    }
     return newSchool.rows[0];
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function deleteSchool(id) {
+  try {
+    const deletedSchool = await pool.query(
+      "DELETE FROM schools WHERE ID=$1 RETURNING name, imagekey",
+      [id]
+    );
+    return deletedSchool.rows[0];
   } catch (error) {
     console.error(error);
   }
@@ -79,4 +105,5 @@ module.exports = {
   getSchoolByName: getSchoolByName,
   createSchool: createSchool,
   updateSchool: updateSchool,
+  deleteSchool: deleteSchool,
 };

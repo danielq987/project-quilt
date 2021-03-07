@@ -15,7 +15,7 @@ block content
     each school in schools
       tr
         td: a(href=`/schools/${school.id}/`)= school.name
-        td= school.about
+        td.about-cell= school.about
         td= school.location
         td
           form(action=`/schools/${school.id}/delete` method="POST")

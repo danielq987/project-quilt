@@ -35,7 +35,7 @@ router.post("/create", aws.upload.single("img"), async (req, res, next) => {
     info.imagekey = req.file.key;
   }
   const newSchool = await db.createSchool(info);
-  res.redirect(`/schools/${newSchool.id}`);
+  res.redirect(`/schools`);
 });
 
 router.get("/:schoolID", async (req, res, next) => {

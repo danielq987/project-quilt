@@ -8,7 +8,7 @@ block content
   form(action=`./${type}` enctype="multipart/form-data" method="POST")
     .form-group
       label(for="img") Attach Image 
-      input.form-control-file#img(type="file" accept="image/*" name="img")
+      input.form-control-file#img(type="file" accept="image/png, image/jpg, image/jpeg, image/gif" name="img")
     .form-group
       label(for="name") Name of School* 
       input.form-control#name(type="text" name="name" value=school.name required)
@@ -19,7 +19,7 @@ block content
       label(for="location") Location 
       textarea.form-control#location(name="location" value=school.location)=school.location
     .form-group
-      label(for="admissions") Admissions
+      label(for="admissions") Admission
       textarea.form-control#admissions(name="admissions" value=school.admissions)=school.admissions
     .form-group
       input.btn.btn-primary.btn-block(type="submit")

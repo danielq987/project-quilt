@@ -22,6 +22,7 @@ const upload = multer({
 });
 
 function deleteObject(key) {
+  console.log("key" + key);
   s3.deleteObject({ Bucket: S3_BUCKET, Key: key }, (err, data) => {
     console.error(err);
     console.log(data);

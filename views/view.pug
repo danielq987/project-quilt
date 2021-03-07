@@ -7,14 +7,23 @@ block content
     .info-box.container
       .info-text
         p
-          b About: 
-          =school.about
-        p
-          b Admissions: 
-          =school.admissions
+          if school.about
+            b About: 
+            =school.about
+          else
+            ="No description given."
+          br 
+          if school.admissions
+            b Admissions: 
+            =school.admissions
+          else
+            ="No admission information given."
         br
       .location
-        =school.location
+        if school.location
+          =school.location
+        else
+          ="No location given."
     if school.imagekey
       img.img-fluid(src=`https://quiltimages.s3.amazonaws.com/${school.imagekey}`, alt=`Image of ${school.name}`)
   form(action="./update") 

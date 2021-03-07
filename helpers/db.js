@@ -37,8 +37,8 @@ async function getSchoolByID(id) {
 async function getSchoolByName(searchQuery) {
   try {
     const schools = await pool.query(
-      "SELECT * FROM schools WHERE name LIKE '%$1%'",
-      [searchQuery]
+      "SELECT * FROM schools WHERE name ILIKE $1",
+      ["%" + searchQuery + "%"]
     );
     return schools.rows;
   } catch (error) {

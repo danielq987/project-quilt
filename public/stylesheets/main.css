@@ -39,6 +39,7 @@
   position: absolute;
   bottom: 0;
   clear: both;
+  color: rgb(148, 148, 148);
 }
 
 .navbar {
@@ -71,4 +72,12 @@ footer {
   font-size: 40px;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#search-bar {
+  max-width: 500px;
+  margin: auto;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }

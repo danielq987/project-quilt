@@ -4,8 +4,14 @@ const aws = require("../helpers/aws");
 const db = require("../helpers/db");
 
 // Display all the schools in the database in alphabetical order
+// If a search query is added, then
 router.get("/", async (req, res, next) => {
-  let schools = await db.getAllSchools();
+  let schools;
+  if (req.query.q) {
+    schools = await db.getSchoolByName(req.query.q);
+  } else {
+    schools = await db.getAllSchools();
+  }
   // sorts schools in alpha order
   schools.sort((a, b) => {
     return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
@@ -28,9 +34,7 @@ router.post("/create", aws.upload.single("img"), async (req, res, next) => {
   if (req.file) {
     info.imagekey = req.file.key;
   }
-  console.log(info);
   const newSchool = await db.createSchool(info);
-  console.log(newSchool);
   res.redirect(`/schools/${newSchool.id}`);
 });
 
@@ -65,14 +69,18 @@ router.get("/:schoolID/update", async (req, res, next) => {
   }
 });
 
-// PUT method called when user clickers "update"
+// called when user clickers "update"
 router.post(
   "/:schoolID/update",
   aws.upload.single("img"),
   async (req, res, next) => {
     let info = req.body;
-    console.log(req.file);
+
+    // If a new file is given, delete previous image from database
     if (req.file) {
+      oldSchool = await db.getSchoolByID(req.params.schoolID);
+      console.log(JSON.stringify(oldSchool));
+      aws.delete(oldSchool[0].imagekey);
       info.imagekey = req.file.key;
     }
     await db.updateSchool(req.params.schoolID, info);
@@ -80,9 +88,9 @@ router.post(
   }
 );
 
+// Delete school and image from database and S3
 router.post("/:schoolID/delete", async (req, res, next) => {
   const deletedSchool = await db.deleteSchool(req.params.schoolID);
-  console.log(deletedSchool);
   if (deletedSchool.imagekey) {
     aws.delete(deletedSchool.imagekey);
   }

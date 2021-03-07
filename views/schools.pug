@@ -3,8 +3,8 @@ extends layouts/layout
 block content
   form(action="/schools/create") 
     input.btn.btn-block.btn-primary(type="submit" value="Create New Listing")
-
-  form(action="" method="method")
+  form(action="/schools" method="GET")
+    input.form-control#search-bar(type="search" name="q" placeholder="Search Schools by Name")
   table.table.table-striped
     thead
       th Name

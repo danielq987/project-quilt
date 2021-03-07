@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
   res.render("schools", { title: "School Listing", schools: schools });
 });
 
-// Page to create a new school listing
+// Page for user to create a new school listing
 router.get("/create", (req, res, next) => {
   res.render("create", {
     title: "Create Listing",
@@ -31,6 +31,7 @@ router.get("/create", (req, res, next) => {
 // POST method called when user clicks "create"
 router.post("/create", aws.upload.single("img"), async (req, res, next) => {
   let info = req.body;
+  // if a file was uploaded to AWS, store its key in the database
   if (req.file) {
     info.imagekey = req.file.key;
   }
@@ -38,6 +39,7 @@ router.post("/create", aws.upload.single("img"), async (req, res, next) => {
   res.redirect(`/schools`);
 });
 
+// ensure that there is a trailing slash at the end of a school page
 router.get("/:schoolID", async (req, res, next) => {
   res.redirect(`./${req.params.schoolID}/`);
 });
@@ -45,6 +47,7 @@ router.get("/:schoolID", async (req, res, next) => {
 // View a specific school's information
 router.get("/:schoolID/", async (req, res, next) => {
   const queryResponse = await db.getSchoolByID(req.params.schoolID);
+  // if ID does not exist, direct to 404 middleware
   if (queryResponse.length == 0) {
     next();
   } else {
@@ -58,6 +61,7 @@ router.get("/:schoolID/", async (req, res, next) => {
 // Page to update information
 router.get("/:schoolID/update", async (req, res, next) => {
   const queryResponse = await db.getSchoolByID(req.params.schoolID);
+  // direct to 404 if id not found
   if (queryResponse.length == 0) {
     next();
   } else {
@@ -76,7 +80,7 @@ router.post(
   async (req, res, next) => {
     let info = req.body;
 
-    // If a new file is given, delete previous image from database
+    // If a new file is given, delete previous image from database to avoid clutter
     if (req.file) {
       oldSchool = await db.getSchoolByID(req.params.schoolID);
       console.log(JSON.stringify(oldSchool));

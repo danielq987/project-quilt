@@ -1,3 +1,9 @@
+/*
+
+Helper functions for interfacing with AWS.
+
+*/
+
 const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
@@ -8,6 +14,7 @@ const s3 = new aws.S3();
 
 const S3_BUCKET = process.env.S3_BUCKET;
 
+// multer wrapper function to simplify image uploading
 const upload = multer({
   storage: multerS3({
     s3: s3,
@@ -21,6 +28,7 @@ const upload = multer({
   }),
 });
 
+// function to delete an image from the S3 bucket
 function deleteObject(key) {
   console.log("key" + key);
   s3.deleteObject({ Bucket: S3_BUCKET, Key: key }, (err, data) => {

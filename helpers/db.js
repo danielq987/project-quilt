@@ -1,6 +1,6 @@
 /* 
 
-This helper file contains all the necessary database querying functions.
+This helper file contains functions to communicate with the Postgres database.
 
 */
 
